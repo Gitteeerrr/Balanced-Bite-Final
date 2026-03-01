@@ -12,7 +12,6 @@
             background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
             background-attachment: fixed;
         }
-
         .login-card { 
             width: 100%; max-width: 400px; padding: 40px;
             background: rgba(255, 255, 255, 0.15);
@@ -21,21 +20,15 @@
             border-radius: 24px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             color: white;
         }
-
         .form-control {
             background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
             color: white; border-radius: 12px;
         }
-
-        .form-control:focus { background: rgba(255, 255, 255, 0.2); color: white; box-shadow: none; border-color: #FFCC70; }
-
         .btn-login {
             background: #fff; color: #4158D0; font-weight: 700;
             border-radius: 12px; border: none; padding: 12px; transition: all 0.3s ease;
         }
-
         .btn-login:hover { transform: translateY(-3px); background: #FFCC70; color: #333; }
-
         .toggle-link { color: #FFCC70; cursor: pointer; text-decoration: underline; font-weight: bold; }
     </style>
 </head>
@@ -44,29 +37,22 @@
 <div class="login-card">
     <div class="text-center mb-4">
         <h1 id="main-title" class="fw-bold m-0">Balanced Bite</h1>
-        <p id="sub-title" class="small text-uppercase" style="letter-spacing: 2px;">Member Login</p>
+        <p id="sub-title" class="small text-uppercase">Member Login</p>
     </div>
-    
     <div id="login-message"></div>
-
     <form id="auth-form">
         <div class="mb-3">
             <label class="form-label small">Username</label>
-            <input type="text" id="userIn" class="form-control" placeholder="e.g. Grade9Student">
+            <input type="text" id="userIn" class="form-control" placeholder="Username">
         </div>
         <div class="mb-3">
             <label class="form-label small">Password</label>
-            <input type="password" id="passIn" class="form-control" placeholder="••••••••">
+            <input type="password" id="passIn" class="form-control" placeholder="Password">
         </div>
-        
         <button type="button" id="submit-btn" onclick="handleAuth()" class="btn btn-login w-100 mt-2 shadow">Access App</button>
-        
         <div class="text-center mt-4 small">
             <span id="toggle-text">Don't have an account?</span> 
             <span class="toggle-link" onclick="toggleMode()">Click Here</span>
-        </div>
-        <div class="text-center mt-2">
-            <a href="index.html" style="color: rgba(255,255,255,0.6); text-decoration: none;">← Home</a>
         </div>
     </form>
 </div>
@@ -76,22 +62,10 @@ let isLoginMode = true;
 
 function toggleMode() {
     isLoginMode = !isLoginMode;
-    const title = document.getElementById('main-title');
-    const sub = document.getElementById('sub-title');
-    const btn = document.getElementById('submit-btn');
-    const toggleText = document.getElementById('toggle-text');
-
-    if (isLoginMode) {
-        title.innerText = "Balanced Bite";
-        sub.innerText = "Member Login";
-        btn.innerText = "Access App";
-        toggleText.innerText = "Don't have an account?";
-    } else {
-        title.innerText = "Join Us";
-        sub.innerText = "Create Master Account";
-        btn.innerText = "Register Now";
-        toggleText.innerText = "Already a member?";
-    }
+    document.getElementById('main-title').innerText = isLoginMode ? "Balanced Bite" : "Join Us";
+    document.getElementById('sub-title').innerText = isLoginMode ? "Member Login" : "Create Account";
+    document.getElementById('submit-btn').innerText = isLoginMode ? "Access App" : "Register Now";
+    document.getElementById('toggle-text').innerText = isLoginMode ? "Don't have an account?" : "Already a member?";
 }
 
 function handleAuth() {
@@ -99,21 +73,28 @@ function handleAuth() {
     const pass = document.getElementById('passIn').value;
     const messageArea = document.getElementById('login-message');
 
+    if (!user || !pass) {
+        messageArea.innerHTML = `<div class="alert py-2 text-center" style="background:rgba(255,0,0,0.2);color:#fff;">Fill all fields!</div>`;
+        return;
+    }
+
     if (isLoginMode) {
-        // LOGIN LOGIC
-        if (user === "Grade9Student" && pass === "Bite2026") {
-            messageArea.innerHTML = `<div class="alert py-2 text-center" style="background: rgba(0,255,0,0.2); color: #fff; border: 1px solid #0f0;">✨ Welcome back! Entering...</div>`;
-            // Optional: window.location.href = "index.html"; 
+        // Check Master Login OR LocalStorage
+        const storedPass = localStorage.getItem(user);
+        
+        if ((user === "Grade9Student" && pass === "Bite2026") || (storedPass === pass)) {
+            messageArea.innerHTML = `<div class="alert py-2 text-center" style="background:rgba(0,255,0,0.2);color:#fff;">✨ Success! Redirecting...</div>`;
+            setTimeout(() => { window.location.href = "index.html"; }, 1500);
         } else {
-            messageArea.innerHTML = `<div class="alert py-2 text-center" style="background: rgba(255,0,0,0.2); color: #fff; border: 1px solid #f00;">⚠️ Wrong credentials. Use the Master Login.</div>`;
+            messageArea.innerHTML = `<div class="alert py-2 text-center" style="background:rgba(255,0,0,0.2);color:#fff;">Invalid login!</div>`;
         }
     } else {
-        // SIGN UP LOGIC (Simulation)
-        messageArea.innerHTML = `<div class="alert py-2 text-center" style="background: rgba(255,204,112,0.2); color: #fff; border: 1px solid #FFCC70;">📝 Account created! Please log in with these details.</div>`;
-        setTimeout(toggleMode, 2000); // Switch back to login after 2 seconds
+        // SAVE to LocalStorage
+        localStorage.setItem(user, pass);
+        messageArea.innerHTML = `<div class="alert py-2 text-center" style="background:rgba(0,255,0,0.2);color:#fff;">📝 Account Saved! Logging you in...</div>`;
+        setTimeout(handleAuth, 1500); // Automatically log them in
     }
 }
 </script>
-
 </body>
 </html>
