@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Balanced Bite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #0d6efd; height: 100vh; display: flex; align-items: center; }
+        .login-card { max-width: 400px; width: 100%; margin: auto; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card login-card shadow-lg p-4">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Balanced Bite</h2>
+            <p class="text-muted">Member Access</p>
+        </div>
+        
+        <div id="login-message"></div>
+
+        <form>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Username</label>
+                <input type="text" id="userIn" class="form-control" placeholder="Grade9Student">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Password</label>
+                <input type="password" id="passIn" class="form-control" placeholder="Bite2026">
+            </div>
+            <button type="button" onclick="handleLogin()" class="btn btn-primary w-100 fw-bold py-2 mb-3">Sign In</button>
+            <a href="index.html" class="btn btn-outline-secondary w-100">← Back to Home</a>
+        </form>
+    </div>
+</div>
+
+<script>
+function handleLogin() {
+    const user = document.getElementById('userIn').value;
+    const pass = document.getElementById('passIn').value;
+    const messageArea = document.getElementById('login-message');
+
+    // Mimics the logic you used in your Java project
+    if (user === "Grade9Student" && pass === "Bite2026") {
+        messageArea.innerHTML = `<div class="alert alert-success">✅ Login Success! Welcome back.</div>`;
+    } else {
+        messageArea.innerHTML = `<div class="alert alert-danger">❌ Invalid username or password.</div>`;
+    }
+}
+</script>
+
+</body>
+</html>
