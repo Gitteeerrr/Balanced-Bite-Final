@@ -161,6 +161,58 @@ function calculateBMI() {
     }
 }
 </script>
+    <script>
+/* ====== WORKOUT / GAMIFICATION CODE ====== */
+let workoutCount = parseInt(localStorage.getItem("workoutCount")) || 0;
+let totalPoints = parseInt(localStorage.getItem("totalPoints")) || 0;
+
+const gamificationSection = document.getElementById("gamification");
+
+if (!document.getElementById("workoutDisplay")) {
+    const trackerHTML = `
+    <div class="mt-4 p-4 bg-light rounded shadow-sm text-center">
+        <h4 class="fw-bold text-primary">🔥 Workout Progress</h4>
+        <h2 id="workoutDisplay">${workoutCount}</h2>
+        <p>Total Points: <span id="pointsDisplay">${totalPoints}</span></p>
+        <button class="btn btn-warning fw-bold" onclick="completeWorkout()">Complete Workout</button>
+        <div id="badge5" class="mt-3 text-success fw-bold" style="display:none;">
+            🏆 Bronze Badge Unlocked! (5 Workouts)
+        </div>
+        <div id="badge10" class="mt-2 text-danger fw-bold" style="display:none;">
+            🥇 Gold Badge Unlocked! (10 Workouts)
+        </div>
+    </div>`;
+    gamificationSection.insertAdjacentHTML("afterbegin", trackerHTML);
+}
+
+const challenges = gamificationSection.querySelectorAll('.challenge-card input');
+
+challenges.forEach((box) => {
+    box.addEventListener("change", function () {
+        if (this.checked) totalPoints += 50;
+        else totalPoints -= 50;
+        localStorage.setItem("totalPoints", totalPoints);
+        document.getElementById("pointsDisplay").innerText = totalPoints;
+    });
+});
+
+function completeWorkout() {
+    workoutCount++;
+    totalPoints += 100;
+    localStorage.setItem("workoutCount", workoutCount);
+    localStorage.setItem("totalPoints", totalPoints);
+    document.getElementById("workoutDisplay").innerText = workoutCount;
+    document.getElementById("pointsDisplay").innerText = totalPoints;
+    checkBadges();
+}
+
+function checkBadges() {
+    if (workoutCount >= 5) document.getElementById("badge5").style.display = "block";
+    if (workoutCount >= 10) document.getElementById("badge10").style.display = "block";
+}
+
+checkBadges();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
