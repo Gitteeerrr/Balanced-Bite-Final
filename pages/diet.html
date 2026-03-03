@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Healthy Diet Plan | Balanced Bite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4fdf4; padding-top: 70px; }
+        .diet-header { background-color: #198754; color: white; padding: 40px; border-radius: 15px; }
+        /* Simple Quiz Styling */
+        #quiz-container { background-color: white; border-radius: 15px; padding: 25px; }
+        .correct { color: #198754; font-weight: bold; }
+        .wrong { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-success shadow fixed-top" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="../index.html">BALANCED BITE</a>
+        <a class="btn btn-outline-light btn-sm" href="../index.html">← Back to Dashboard</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    
+    <div class="diet-header text-center shadow-sm">
+        <h1 class="display-5 fw-bold">🥗 How Should I Diet?</h1>
+        <p class="lead">Simple nutrition for a better lifestyle.</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="p-4 bg-white shadow-sm rounded border-start border-success border-4">
+                <h3 class="text-success fw-bold">The Secret of Mindful Eating</h3>
+                <p class="fs-5">
+                    Innovation in health isn't just about new superfoods; it's about <strong>how</strong> we eat. 
+                    Mindful eating is the practice of being fully present during a meal. Research shows that 
+                    turning off the TV and putting away your phone while eating helps your brain recognize 
+                    when you are full, preventing overeating by up to 20%.
+                </p>
+                <p class="text-muted italic">"Treat your meal like a meeting with yourself."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3 class="text-success fw-bold">Daily Nutrition Tips</h3>
+            <div class="list-group shadow-sm mb-4">
+                <div class="list-group-item"><strong>1. Water First:</strong> Drink a glass before every meal.</div>
+                <div class="list-group-item"><strong>2. Fiber Focus:</strong> Aim for 3 different colors of veg a day.</div>
+                <div class="list-group-item"><strong>3. Healthy Fats:</strong> Include avocados or nuts for brain health.</div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div id="quiz-container" class="shadow-sm border">
+                <h4 class="fw-bold text-success mb-3">🧠 Knowledge Check</h4>
+                <p id="question">Which food is a better choice for a slow-release energy breakfast?</p>
+                
+                <div class="d-grid gap-2">
+                    <button onclick="checkAnswer(false)" class="btn btn-outline-success text-start">A) Sugary Cereal</button>
+                    <button onclick="checkAnswer(true)" class="btn btn-outline-success text-start">B) Whole Grain Oats</button>
+                </div>
+                
+                <div id="quiz-feedback" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="text-center py-4 mt-5 border-top text-muted">
+    <small>© 2026 Balanced Bite | Innovative Health Project</small>
+</footer>
+
+<script>
+    function checkAnswer(isCorrect) {
+        const feedback = document.getElementById('quiz-feedback');
+        if (isCorrect) {
+            feedback.innerHTML = "<p class='correct'>✅ Correct! Oats provide steady energy throughout the morning.</p>";
+        } else {
+            feedback.innerHTML = "<p class='wrong'>❌ Try again! Sugary cereals cause an energy crash later.</p>";
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
