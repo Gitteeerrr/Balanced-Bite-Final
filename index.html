@@ -7,26 +7,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root { --primary-blue: #0d6efd; --accent-gold: #ffc107; }
+        /* Smooth scroll makes the nav links feel like an app */
+        html { scroll-behavior: smooth; }
         body { background-color: #f8f9fa; }
         .card-img-top { height: 180px; object-fit: cover; }
         .challenge-card { transition: transform 0.2s; cursor: pointer; }
         .challenge-card:hover { transform: scale(1.02); }
         .bg-gradient-dark { background: linear-gradient(45deg, #212529, #343a40); }
         #bmi-result-box { display: none; }
+        
+        /* Fixed navbar adjustment */
+        body { padding-top: 56px; } 
     </style>
 </head>
 <body>
 
-<nav class="navbar bg-primary shadow" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary shadow fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <ul class="nav justify-content-center w-100">
-            <li class="nav-item"><a class="nav-link active text-white fw-bold" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#gamification">Daily Challenges</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#bmi-tool">BMI Calculator</a></li>
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold" href="login.html">Sign in/ Log in</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active text-white fw-bold" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#gamification">Daily Challenges</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#bmi-tool">BMI Calculator</a></li>
+                <li class="nav-item"><a class="nav-link text-white fw-bold" href="login.html">Sign in / Log in</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -92,19 +100,19 @@
             <div class="col-md-4">
                 <div class="p-3 border rounded challenge-card d-flex align-items-center bg-light">
                     <input type="checkbox" class="form-check-input me-3" style="width: 25px; height: 25px;">
-                    <div><h6 class="mb-0 fw-bold">Hydration Hero</h6><small class="+50 pts"></small></div>
+                    <div><h6 class="mb-0 fw-bold">Hydration Hero</h6><small>+50 pts</small></div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="p-3 border rounded challenge-card d-flex align-items-center bg-light">
                     <input type="checkbox" class="form-check-input me-3" style="width: 25px; height: 25px;">
-                    <div><h6 class="mb-0 fw-bold">Green Machine</h6><small class="+30 pts"></small></div>
+                    <div><h6 class="mb-0 fw-bold">Green Machine</h6><small>+30 pts</small></div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="p-3 border rounded challenge-card d-flex align-items-center bg-light">
                     <input type="checkbox" class="form-check-input me-3" style="width: 25px; height: 25px;">
-                    <div><h6 class="mb-0 fw-bold">Step Master</h6><small class="+100 pts"></small></div>
+                    <div><h6 class="mb-0 fw-bold">Step Master</h6><small>+100 pts</small></div>
                 </div>
             </div>
         </div>
@@ -160,14 +168,14 @@ function calculateBMI() {
         document.getElementById('bmi-text').innerText = t;
     }
 }
-</script>
-    <script>
-/* ====== WORKOUT / GAMIFICATION CODE ====== */
+
+/* GAMIFICATION LOGIC */
 let workoutCount = parseInt(localStorage.getItem("workoutCount")) || 0;
 let totalPoints = parseInt(localStorage.getItem("totalPoints")) || 0;
 
 const gamificationSection = document.getElementById("gamification");
 
+// Add tracker if it doesn't exist
 if (!document.getElementById("workoutDisplay")) {
     const trackerHTML = `
     <div class="mt-4 p-4 bg-light rounded shadow-sm text-center">
@@ -175,18 +183,13 @@ if (!document.getElementById("workoutDisplay")) {
         <h2 id="workoutDisplay">${workoutCount}</h2>
         <p>Total Points: <span id="pointsDisplay">${totalPoints}</span></p>
         <button class="btn btn-warning fw-bold" onclick="completeWorkout()">Complete Workout</button>
-        <div id="badge5" class="mt-3 text-success fw-bold" style="display:none;">
-            🏆 Bronze Badge Unlocked! (5 Workouts)
-        </div>
-        <div id="badge10" class="mt-2 text-danger fw-bold" style="display:none;">
-            🥇 Gold Badge Unlocked! (10 Workouts)
-        </div>
+        <div id="badge5" class="mt-3 text-success fw-bold" style="display:none;">🏆 Bronze Badge Unlocked! (5 Workouts)</div>
+        <div id="badge10" class="mt-2 text-danger fw-bold" style="display:none;">🥇 Gold Badge Unlocked! (10 Workouts)</div>
     </div>`;
     gamificationSection.insertAdjacentHTML("afterbegin", trackerHTML);
 }
 
 const challenges = gamificationSection.querySelectorAll('.challenge-card input');
-
 challenges.forEach((box) => {
     box.addEventListener("change", function () {
         if (this.checked) totalPoints += 50;
@@ -210,7 +213,6 @@ function checkBadges() {
     if (workoutCount >= 5) document.getElementById("badge5").style.display = "block";
     if (workoutCount >= 10) document.getElementById("badge10").style.display = "block";
 }
-
 checkBadges();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
