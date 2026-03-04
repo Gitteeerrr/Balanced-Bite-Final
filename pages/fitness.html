@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPulse | Training & Tools</title>
+    <style>
+        /* BASE STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #121212; color: #fff; line-height: 1.6; }
+
+        /* HEADER */
+        nav { display: flex; justify-content: space-between; padding: 20px 5%; background: #000; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #fff; }
+        .logo span { color: #ff4500; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+
+        /* HERO SECTION */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3.5rem; color: #fff; text-transform: uppercase; }
+
+        /* GRID SECTION */
+        .container { padding: 50px 5%; max-width: 1200px; margin: auto; }
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+
+        /* CALCULATOR CARD */
+        .calc-card {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        .calc-card h2 { color: #ff4500; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: #2b2b2b;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+            outline: none;
+        }
+        .calc-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff4500;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .calc-btn:hover { background: #cc3700; }
+
+        /* RESULT DISPLAY */
+        #result-area {
+            margin-top: 25px;
+            padding: 20px;
+            background: #252525;
+            border-radius: 8px;
+            text-align: center;
+            display: none; /* Hidden until calculated */
+        }
+        .bmi-value { font-size: 2rem; font-weight: bold; color: #ff4500; }
+
+        /* WORKOUT CARDS */
+        .workout-list { display: grid; gap: 20px; }
+        .workout-item {
+            background: #1e1e1e;
+            padding: 20px;
+            border-left: 5px solid #ff4500;
+            border-radius: 5px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">FIT<span>PULSE</span></div>
+        <ul>
+            <li><a href="#">WORKOUTS</a></li>
+            <li><a href="#">TOOLS</a></li>
+            <li><a href="#">PLANS</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Your Transformation Starts Here</h1>
+    </section>
+
+    <div class="container">
+        <div class="main-grid">
+            
+            <div class="calc-card">
+                <h2>BMI Calculator</h2>
+                <p style="margin-bottom: 20px; color: #aaa;">Track your body mass index to monitor your fitness progress.</p>
+                
+                <div class="input-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 75">
+                </div>
+                
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 180">
+                </div>
+
+                <button class="calc-btn" onclick="calculateBMI()">CALCULATE NOW</button>
+
+                <div id="result-area">
+                    <p>Your BMI is:</p>
+                    <div class="bmi-value" id="bmi-score">24.5</div>
+                    <p id="bmi-status" style="font-weight: bold; margin-top: 10px;">Normal Weight</p>
+                </div>
+            </div>
+
+            <div class="workout-list">
+                <h2 style="margin-bottom: 10px;">Quick Routines</h2>
+                <div class="workout-item">
+                    <h4>Morning HIIT</h4>
+                    <p>15 Mins • High Intensity</p>
+                </div>
+                <div class="workout-item">
+                    <h4>Power Lifting</h4>
+                    <p>45 Mins • Advanced</p>
+                </div>
+                <div class="workout-item">
+                    <h4>Core Shred</h4>
+                    <p>10 Mins • Intermediate</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const weight = document.getElementById('weight').value;
+            const heightCm = document.getElementById('height').value;
+            const resultArea = document.getElementById('result-area');
+            const scoreDisplay = document.getElementById('bmi-score');
+            const statusDisplay = document.getElementById('bmi-status');
+
+            if(weight > 0 && heightCm > 0) {
+                // Formula: kg / m^2
+                const heightM = heightCm / 100;
+                const bmi = (weight / (heightM * heightM)).toFixed(1);
+                
+                resultArea.style.display = "block";
+                scoreDisplay.innerHTML = bmi;
+
+                // Determine Category
+                if(bmi < 18.5) {
+                    statusDisplay.innerHTML = "Underweight";
+                    statusDisplay.style.color = "#ffeb3b";
+                } else if(bmi >= 18.5 && bmi <= 24.9) {
+                    statusDisplay.innerHTML = "Healthy Weight";
+                    statusDisplay.style.color = "#4caf50";
+                } else if(bmi >= 25 && bmi <= 29.9) {
+                    statusDisplay.innerHTML = "Overweight";
+                    statusDisplay.style.color = "#ff9800";
+                } else {
+                    statusDisplay.innerHTML = "Obese";
+                    statusDisplay.style.color = "#f44336";
+                }
+            } else {
+                alert("Please enter valid numbers for weight and height!");
+            }
+        }
+    </script>
+
+</body>
+</html>
