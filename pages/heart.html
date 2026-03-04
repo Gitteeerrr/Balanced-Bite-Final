@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heart Health | Balanced Bite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #fff5f5; /* Very light red/pink for heart theme */
+            padding-top: 70px; 
+        }
+        .heart-header {
+            background-color: #dc3545; /* Bootstrap Danger Red */
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        #quiz-container { background-color: white; border-radius: 15px; padding: 25px; }
+        .correct { color: #198754; font-weight: bold; }
+        .wrong { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-danger shadow fixed-top" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="../index.html">BALANCED BITE</a>
+        <a class="btn btn-outline-light btn-sm" href="../index.html">← Back to Dashboard</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    
+    <div class="heart-header text-center shadow-sm">
+        <h1 class="display-5 fw-bold">❤️ Heart Health</h1>
+        <p class="lead">Protecting your body's most important engine.</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="p-4 bg-white shadow-sm rounded border-start border-danger border-4">
+                <h3 class="text-danger fw-bold">The "Power of 10" Innovation</h3>
+                <p class="fs-5">
+                    Many people think you need hours at the gym to help your heart, but science shows the <strong>Power of 10</strong>. 
+                    Just 10 minutes of brisk walking three times a day can lower blood pressure as effectively as a 30-minute workout. 
+                    Innovation isn't always about high-tech machines; sometimes it's about making health fit into a busy student schedule.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <h3 class="text-danger fw-bold text-center mb-4">Heart Care by Age</h3>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm border-danger">
+                <div class="card-body text-center">
+                    <h5 class="fw-bold">🏃 Kids/Teens</h5>
+                    <p class="small">Strengthen the heart muscle early through active play and sports.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm border-danger bg-light">
+                <div class="card-body text-center">
+                    <h5 class="fw-bold">⚖️ Adults</h5>
+                    <p class="small">Focus on managing stress and monitoring cholesterol levels.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm border-danger">
+                <div class="card-body text-center">
+                    <h5 class="fw-bold">🚶 Seniors</h5>
+                    <p class="small">Keep the heart flexible with low-impact movement like walking or swimming.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3 class="text-danger fw-bold">Daily Heart Checklist</h3>
+            <div class="p-3 bg-white border rounded shadow-sm">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">Reduced salt intake today</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">Did at least 10 mins of cardio</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">Included healthy fats (Omega-3)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div id="quiz-container" class="shadow-sm border">
+                <h4 class="fw-bold text-danger mb-3">🧠 Heart Quiz</h4>
+                <p>What is considered a normal resting heart rate for most adults?</p>
+                
+                <div class="d-grid gap-2">
+                    <button onclick="checkHeart(true)" class="btn btn-outline-danger text-start">A) 60 to 100 BPM</button>
+                    <button onclick="checkHeart(false)" class="btn btn-outline-danger text-start">B) 120 to 150 BPM</button>
+                </div>
+                
+                <div id="heart-feedback" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="text-center py-4 mt-5 border-top text-muted">
+    <small>© 2026 Balanced Bite | Heart Health Project</small>
+</footer>
+
+<script>
+    function checkHeart(isCorrect) {
+        const feedback = document.getElementById('heart-feedback');
+        if (isCorrect) {
+            feedback.innerHTML = "<p class='correct'>❤️ Correct! 60-100 beats per minute is typical for a resting heart.</p>";
+        } else {
+            feedback.innerHTML = "<p class='wrong'>❌ Not quite. 120+ is usually reached during exercise!</p>";
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
