@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Science of Blood Pressure | Balanced Bite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fcfaff; padding-top: 70px; }
+        .bp-header { background: linear-gradient(45deg, #6f42c1, #4e2a84); color: white; padding: 50px; border-radius: 15px; }
+        .science-card { background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #6f42c1; }
+        .stat-box { background: #f3effb; border-radius: 8px; padding: 15px; text-align: center; border: 1px solid #d1c4e9; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-dark shadow fixed-top" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="../index.html">BALANCED BITE</a>
+        <a class="btn btn-outline-light btn-sm" href="../index.html">← Back to Dashboard</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="bp-header text-center shadow">
+        <h1 class="display-5 fw-bold">🩺 The Science of Blood Pressure</h1>
+        <p class="lead">How your diet controls the pressure in your pipes.</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <div class="science-card shadow-sm">
+                <h3 class="text-primary fw-bold">The Sodium-Water Connection</h3>
+                <p class="fs-5">
+                    Think of Sodium as a **water magnet**. When you eat high-sodium foods (like chips or canned soup), your body pulls water into your blood vessels to balance the salt levels. 
+                </p>
+                <p>
+                    This extra fluid increases the volume of your blood, forcing your heart to pump harder. Over time, this "High Pressure" damages the delicate lining of your arteries, leading to heart disease.
+                </p>
+                <hr>
+                <h3 class="text-success fw-bold">The Potassium Balance</h3>
+                <p>
+                    **Potassium** is the "Reliever." It helps your kidneys flush out the extra sodium and relaxes the tension in your blood vessel walls. By eating more potassium (bananas, sweet potatoes, spinach), you are essentially "opening up" the pipes to let blood flow more freely.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="p-4 bg-white shadow-sm border rounded">
+                <h5 class="fw-bold text-danger">⚠️ The Hidden Salt ⚠️</h5>
+                <p class="small text-muted">Most people think the salt shaker is the enemy. However, <strong>75%</strong> of our salt intake comes from processed foods:</p>
+                <ul class="small">
+                    <li>Bread & Tortillas</li>
+                    <li>Deli Meats (Ham/Turkey)</li>
+                    <li>Canned Soups</li>
+                    <li>Pizza & Frozen Meals</li>
+                </ul>
+                <div class="stat-box mt-3">
+                    <h6 class="fw-bold">Daily Goal</h6>
+                    <p class="mb-0">Less than <strong>2,300mg</strong> of Sodium</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border rounded text-center">
+                <h4 class="fw-bold text-primary mb-3">🧠 Test Your Knowledge</h4>
+                <p>Why does salt increase blood pressure?</p>
+                <button onclick="checkBP(true)" class="btn btn-primary w-100 mb-2">It pulls water into the blood vessels</button>
+                <button onclick="checkBP(false)" class="btn btn-outline-primary w-100">It makes the heart beat faster</button>
+                <div id="bp-feedback" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkBP(isCorrect) {
+        const feedback = document.getElementById('bp-feedback');
+        feedback.innerHTML = isCorrect ? 
+            "<p class='text-success fw-bold'>✅ Exactly! More water = more volume = higher pressure.</p>" : 
+            "<p class='text-danger fw-bold'>❌ Not quite. While your heart may work harder, the pressure comes from the extra fluid volume.</p>";
+    }
+</script>
+
+</body>
+</html>
